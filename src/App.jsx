@@ -1,163 +1,87 @@
 import MinimalNav from './components/MinimalNav'
 import CursorComet from './components/CursorComet'
-import { motion } from 'framer-motion'
+import MagneticButton from './components/MagneticButton'
+import { motion, useReducedMotion } from 'framer-motion'
 
 function App() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white selection:bg-cyan-400/20 selection:text-white">
+    <div className="min-h-screen bg-zinc-950 text-white selection:bg-fuchsia-400/20 selection:text-white">
       <CursorComet />
       <MinimalNav />
       <main className="pt-24">
-        <ManifestoHero />
-        <SegmentedShowcase />
-        <StudioGrid />
-        <CTA />
-        <Footer />
+        <EditorialHero />
+        <KineticCTA />
+        <MasonryShowcase />
+        <InkSpreadGallery />
+        <PunchyFooter />
       </main>
     </div>
   )
 }
 
-function ManifestoHero() {
+function EditorialHero() {
+  const prefersReduced = useReducedMotion()
+  const line = (text, colorClasses = '') => (
+    <motion.div
+      key={text}
+      initial={{ y: prefersReduced ? 0 : 40, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.6 }}
+      transition={{ type: 'spring', stiffness: 140, damping: 18 }}
+      className={`leading-[0.9] tracking-[-0.02em] ${colorClasses}`}
+    >
+      <span className="inline-block will-change-transform">{text}</span>
+    </motion.div>
+  )
+
   return (
     <section className="relative overflow-hidden">
-      {/* Orbital gradient field */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 size-[1200px] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.18),transparent_55%)] blur-2xl" />
-        <div className="absolute -bottom-64 left-1/3 size-[900px] rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.14),transparent_60%)] blur-xl" />
-      </div>
-      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-24">
-        <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          Visura Labs • Orbit System
+      {/* brutalist color pops */}
+      <div className="pointer-events-none absolute -top-24 -left-20 h-72 w-72 rotate-6 rounded-lg bg-fuchsia-500/20 blur-2xl" />
+      <div className="pointer-events-none absolute top-40 -right-16 h-60 w-60 -rotate-6 rounded-lg bg-cyan-400/20 blur-2xl" />
+      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-16 md:py-24">
+        <p className="inline-flex items-center gap-2 rounded-sm border border-white/10 bg-white/5 px-2 py-1 text-[10px] uppercase tracking-wider text-zinc-300">
+          Editorial Brutalism · Visura
         </p>
-        <h1 className="mt-6 text-4xl md:text-6xl font-semibold tracking-tight">Design for intent, not noise.</h1>
-        <p className="mt-5 max-w-2xl text-zinc-300 leading-relaxed">We’re rebuilding the surface from first principles — kinetic interfaces that move with purpose, tools that stay silent until the moment matters, and an aesthetic that feels inevitable.</p>
-      </div>
-      <KineticBoard />
-    </section>
-  )
-}
-
-function KineticBoard() {
-  return (
-    <div className="relative mx-auto max-w-7xl px-4 md:px-6 lg:px-8 pb-20">
-      {/* Split, asymmetric kinetic board */}
-      <div className="grid lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-5">
-          <Card title="Precision Cursor" subtitle="Motion that respects intention.">
-            <div className="relative h-40 overflow-hidden rounded-lg border border-white/10 bg-zinc-900/50">
-              <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_24px),repeating-linear-gradient(0deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_24px)]" />
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="h-16 w-16 rounded-full border border-white/20 bg-white/5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.08)]" />
-              </div>
-            </div>
-          </Card>
+        <div className="mt-6 md:mt-10 font-black">
+          <h1 className="text-[12vw] md:text-[8vw] lg:text-[6vw]">
+            {line('Make it LOUD.', 'text-white')}
+            {line('Make it CLEAR.', 'text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400')}
+            {line('Make it MOVE.', 'text-white')}
+          </h1>
         </div>
-        <div className="lg:col-span-7">
-          <Card title="Lens Wall" subtitle="Depth, without distraction.">
-            <div className="grid grid-cols-3 gap-3">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="relative aspect-video rounded-lg overflow-hidden border border-white/10 bg-white/5">
-                  <div className="absolute inset-0 scale-[1.6] rotate-[8deg] bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_24px),repeating-linear-gradient(0deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_24px)]" />
-                  <div className="absolute inset-0 ring-1 ring-cyan-400/10" />
-                  <div className="absolute inset-0 bg-[radial-gradient(180px_180px_at_30%_30%,rgba(34,211,238,0.14),transparent_55%)]" />
-                  <div className="absolute inset-0 backdrop-blur-sm bg-white/5" />
-                </div>
-              ))}
-            </div>
-          </Card>
+        <div className="mt-6 max-w-2xl text-zinc-300 text-sm md:text-base">
+          We’re shifting to an editorial, high-impact surface: oversized type, kinetic motion, and unapologetic color blocks that demand attention.
         </div>
-      </div>
-    </div>
-  )
-}
-
-function SegmentedShowcase() {
-  return (
-    <section className="relative">
-      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-16">
-        <h2 className="text-2xl md:text-3xl font-semibold">Studios, not pages.</h2>
-        <p className="mt-3 text-zinc-300 max-w-2xl">Each surface is a studio designed for one intent. We cut the chrome, keep the muscle, and let the work carry the weight.</p>
-      </div>
-      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 pb-24 grid md:grid-cols-3 gap-6">
-        <StudioCard title="Narrative" tag="Cuts & Cues" color="from-cyan-400 to-sky-400" />
-        <StudioCard title="Capture" tag="Live Lens" color="from-fuchsia-400 to-violet-400" />
-        <StudioCard title="Delivery" tag="4K Social" color="from-emerald-400 to-teal-400" />
       </div>
     </section>
   )
 }
 
-function StudioCard({ title, tag, color }) {
+function KineticCTA() {
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
-      <div className={`pointer-events-none absolute -inset-1 rounded-2xl bg-gradient-to-r ${color} opacity-0 group-hover:opacity-100 blur-2xl transition-opacity`} />
-      <div className="relative">
-        <div className="inline-flex items-center gap-2 text-xs text-zinc-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
-          {tag}
-        </div>
-        <h3 className="mt-4 text-xl font-semibold">{title}</h3>
-        <p className="mt-2 text-zinc-300">Minimal tools, maximal signal. Built to get out of your way.</p>
-      </div>
-      <div className="mt-6 grid grid-cols-3 gap-2">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="aspect-[16/10] rounded-lg border border-white/10 bg-zinc-800/40" />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function StudioGrid() {
-  return (
-    <section className="relative">
+    <section className="relative py-10 md:py-14">
       <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:24px_24px]" />
-          <div className="relative grid md:grid-cols-4 gap-0">
-            {['Focus','Orbit','Magnet','Spotlight'].map((label) => (
-              <div key={label} className="p-6 md:p-8 border-b md:border-b-0 md:border-r border-white/10 bg-zinc-900/40">
-                <h4 className="text-lg font-medium">{label}</h4>
-                <p className="mt-2 text-sm text-zinc-300">A refined micro-interaction tuned for clarity and delight.</p>
-                <div className="mt-4 h-24 rounded-lg border border-white/10 bg-zinc-800/40" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Card({ title, subtitle, children }) {
-  return (
-    <div className="relative rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-xl font-semibold text-white">{title}</h3>
-          <p className="text-sm text-zinc-300">{subtitle}</p>
-        </div>
-        <div className="h-6 w-6 rounded-full bg-white/10" />
-      </div>
-      <div className="mt-4">{children}</div>
-    </div>
-  )
-}
-
-function CTA() {
-  return (
-    <section id="cta" className="relative py-20">
-      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 p-8 md:p-10">
-          <div className="absolute -inset-2 rounded-2xl bg-[conic-gradient(from_180deg_at_50%_50%,rgba(34,211,238,0.0),rgba(34,211,238,0.18),rgba(34,211,238,0.0))] blur-2xl" />
-          <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="relative overflow-hidden rounded-xl border border-white/10 bg-zinc-900/60">
+          {/* sharp split stripe */}
+          <div className="absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+          <div className="relative grid gap-6 md:grid-cols-2 p-6 md:p-10">
             <div>
-              <h3 className="text-2xl md:text-3xl font-semibold">Join the orbit.</h3>
-              <p className="mt-2 text-zinc-300">Early access ships soon. We’ll reserve your seat.</p>
+              <h2 className="text-2xl md:text-4xl font-extrabold leading-tight">
+                Headlines with bite.
+              </h2>
+              <p className="mt-3 text-zinc-300">
+                Magnetic interactions with visible pull, designed for quick decisions.
+              </p>
             </div>
-            <button className="px-4 py-2 rounded-full bg-white text-zinc-900 font-medium hover:bg-zinc-100">Get Early Access</button>
+            <div className="flex items-end md:items-center justify-start md:justify-end gap-4">
+              <MagneticButton href="#" className="bg-white text-zinc-900 hover:bg-zinc-200 rounded-lg px-6 py-3">
+                Start Now
+              </MagneticButton>
+              <MagneticButton href="#" as="button" className="rounded-lg px-6 py-3 bg-gradient-to-r from-fuchsia-500 to-cyan-400 text-zinc-950 font-semibold">
+                Explore Demos
+              </MagneticButton>
+            </div>
           </div>
         </div>
       </div>
@@ -165,10 +89,101 @@ function CTA() {
   )
 }
 
-function Footer() {
+function MasonryShowcase() {
+  const items = Array.from({ length: 10 }).map((_, i) => ({
+    id: i,
+    tall: i % 3 === 0,
+    color:
+      i % 4 === 0
+        ? 'bg-fuchsia-500/20'
+        : i % 4 === 1
+        ? 'bg-cyan-400/20'
+        : i % 4 === 2
+        ? 'bg-amber-400/20'
+        : 'bg-emerald-400/20',
+  }))
+
   return (
-    <footer className="py-12 text-center text-sm text-zinc-400">
-      <p>© {new Date().getFullYear()} Visura Labs</p>
+    <section className="relative py-10 md:py-16">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
+        <div className="flex items-baseline justify-between">
+          <h3 className="text-xl md:text-2xl font-bold">Masonry Showcase</h3>
+          <span className="text-xs text-zinc-400">Asymmetric, fast, editorial</span>
+        </div>
+        <div className="mt-6 columns-1 md:columns-2 lg:columns-3 gap-4 [column-fill:balance]"><div>
+          {items.map((it) => (
+            <motion.div
+              key={it.id}
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className={`mb-4 break-inside-avoid rounded-xl border border-white/10 bg-zinc-900/60 ${it.tall ? 'h-72' : 'h-48'} relative overflow-hidden`}
+            >
+              <div className={`absolute inset-0 ${it.color}`} />
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:22px_22px] opacity-30" />
+              <div className="absolute bottom-3 left-3 text-[10px] uppercase tracking-wider text-zinc-300">Block #{it.id + 1}</div>
+            </motion.div>
+          ))}
+        </div></div>
+      </div>
+    </section>
+  )
+}
+
+function InkSpreadGallery() {
+  const cards = [
+    { title: 'Type Systems', color: 'from-fuchsia-500 to-rose-500' },
+    { title: 'Motion Grammar', color: 'from-cyan-400 to-sky-500' },
+    { title: 'Layout Engine', color: 'from-amber-400 to-yellow-500' },
+    { title: 'Interaction Lab', color: 'from-emerald-400 to-teal-500' },
+  ]
+
+  return (
+    <section className="relative py-10 md:py-16">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {cards.map((c) => (
+            <InkCard key={c.title} title={c.title} color={c.color} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function InkCard({ title, color }) {
+  return (
+    <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-zinc-900/60 p-6">
+      {/* ink spread */}
+      <span className={`pointer-events-none absolute -inset-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></span>
+      <span className={`pointer-events-none absolute inset-0 scale-0 group-hover:scale-150 transition-transform duration-500 ease-out rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),transparent_60%)]`} />
+      <div className="relative">
+        <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-wider text-zinc-400">
+          <span className={`h-2 w-2 rounded-full bg-gradient-to-r ${color}`}></span>
+          Module
+        </div>
+        <h4 className="mt-4 text-lg font-extrabold leading-none">{title}</h4>
+        <p className="mt-2 text-sm text-zinc-300">Hover to see the ink spread. Bold color pops drive attention.</p>
+        <div className={`mt-6 h-24 rounded-lg border border-white/10 bg-gradient-to-r ${color} opacity-70`} />
+      </div>
+    </div>
+  )
+}
+
+function PunchyFooter() {
+  return (
+    <footer className="py-14">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-zinc-400 text-sm">© {new Date().getFullYear()} Visura Labs — Editorial Brutalism</p>
+          <div className="flex items-center gap-3">
+            <a className="text-xs px-3 py-1 rounded-md border border-white/10 hover:bg-white hover:text-zinc-900 transition-colors" href="#">Docs</a>
+            <a className="text-xs px-3 py-1 rounded-md border border-white/10 hover:bg-white hover:text-zinc-900 transition-colors" href="#">Changelog</a>
+            <a className="text-xs px-3 py-1 rounded-md border border-white/10 hover:bg-white hover:text-zinc-900 transition-colors" href="#">X</a>
+          </div>
+        </div>
+      </div>
     </footer>
   )
 }
