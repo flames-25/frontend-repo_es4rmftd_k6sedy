@@ -4,20 +4,19 @@ import { Menu, X, Sparkles } from 'lucide-react'
 export default function Navbar() {
   const [open, setOpen] = useState(false)
 
-  const navItem = (label) => (
-    <a href="#features" className="text-sm md:text-[15px] text-zinc-300 hover:text-white transition-colors">
+  const navItem = (href, label) => (
+    <a href={href} className="text-sm md:text-[15px] text-zinc-300 hover:text-white transition-colors">
       {label}
     </a>
   )
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/60 bg-zinc-900/70 border-b border-white/5">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/70 border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2">
+          <a href="#" className="flex items-center gap-2 select-none">
             <div className="relative">
-              <span className="absolute inset-0 blur-md bg-gradient-to-tr from-fuchsia-500 to-violet-500 opacity-60" />
-              <div className="relative h-8 w-8 rounded-lg bg-zinc-800/80 border border-white/10 grid place-items-center">
+              <div className="relative h-8 w-8 rounded-lg bg-gradient-to-tr from-fuchsia-500/20 to-violet-500/10 border border-white/10 grid place-items-center">
                 <Sparkles className="h-4 w-4 text-fuchsia-400" />
               </div>
             </div>
@@ -25,10 +24,10 @@ export default function Navbar() {
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
-            {navItem('Features')}
-            {navItem('Showcase')}
-            {navItem('Pricing')}
-            {navItem('Support')}
+            {navItem('#features','Capabilities')}
+            {navItem('#showcase','Showcase')}
+            {navItem('#pricing','Pricing')}
+            {navItem('#faq','FAQ')}
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
@@ -42,12 +41,12 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-white/5 bg-zinc-900/80 backdrop-blur">
+        <div className="md:hidden border-t border-white/5 bg-zinc-950/90">
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
-            <a href="#features" className="text-zinc-200">Features</a>
+            <a href="#features" className="text-zinc-200">Capabilities</a>
             <a href="#showcase" className="text-zinc-200">Showcase</a>
             <a href="#pricing" className="text-zinc-200">Pricing</a>
-            <a href="#support" className="text-zinc-200">Support</a>
+            <a href="#faq" className="text-zinc-200">FAQ</a>
             <a href="#download" className="mt-2 px-4 py-2 rounded-md bg-white text-zinc-900 font-medium">Add to Chrome</a>
           </div>
         </div>
